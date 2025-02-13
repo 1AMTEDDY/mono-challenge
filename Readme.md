@@ -139,10 +139,11 @@ While GitHub Actions will ultimately build and push the Docker image, you can te
 eval $(minikube docker-env)
 
  2. Build the Docker Image:
-
+```
 docker build -t mono-app:latest .
-docker push 1amteddy/mono-app:latest
 
+docker push 1amteddy/mono-app:latest
+```
  • This uses the Dockerfile in the root directory.
  • If you’re using the Minikube Docker environment, you can deploy this image directly without a push to Docker Hub.
 

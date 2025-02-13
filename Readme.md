@@ -41,7 +41,7 @@ Below is a high-level flow of how the code gets from GitHub to Kubernetes, creat
 > **Note**: If you have the `.drawio` file in your repo (e.g., `docs/architecture.drawio`), you can open it directly in draw.io or upload it to [app.diagrams.net](https://app.diagrams.net/) to view or edit.  
 
 **Diagram**:  
-
+```
   ┌───────────────┐       ┌─────────────────────────┐
   │               │       │                         │
   │   Developer   │       │   Docker Registry (e.g. │
@@ -66,7 +66,7 @@ Below is a high-level flow of how the code gets from GitHub to Kubernetes, creat
   │ Minikube Cluster  │
   │ (Local Kubernetes)│
   └───────────────────┘
-
+```
 - **Step 1:** Developer pushes code to GitHub.
 - **Step 2:** GitHub Actions workflow triggers, builds a Docker image, and pushes it to a registry (like Docker Hub).
 - **Step 3:** A reusable workflow installs/updates a Helm release on the Minikube cluster with the new image.
@@ -94,7 +94,7 @@ Below is a high-level flow of how the code gets from GitHub to Kubernetes, creat
 ---
 
 ## Repository Structure
-
+```
 mono-app/
 ├─ .github/
 │   └─ workflows/
@@ -109,7 +109,7 @@ mono-app/
 ├─ app.js                      # Simple Node.js Express app
 ├─ Dockerfile                  # Docker build instructions
 └─ README.md                   # This instruction document
-
+```
 ---
 
 ## Step 1: Minikube Setup

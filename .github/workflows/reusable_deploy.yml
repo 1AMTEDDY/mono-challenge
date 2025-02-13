@@ -4,8 +4,10 @@ on:
   workflow_call:
     inputs:
       image_repository:
+        type: string
         required: true
       image_tag:
+        type: string
         required: true
     secrets:
       kubernetes_config:
@@ -14,7 +16,6 @@ on:
 jobs:
   helm_deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out code
         uses: actions/checkout@v3

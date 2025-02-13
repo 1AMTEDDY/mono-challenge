@@ -3,7 +3,7 @@ name: "Build and Deploy"
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   build_and_deploy:
@@ -19,12 +19,12 @@ jobs:
 
       - name: Build and Tag Docker Image
         run: |
-          # Build the Docker image from the Dockerfile
+          # Build the Docker image
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest .
 
       - name: Push Docker Image
         run: |
-          # Push to your Docker Hub repo (username/my-app:latest)
+          # Push the Docker image to your Docker Hub repository
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
 
       - name: Deploy with Helm (Reusable Workflow)
@@ -32,5 +32,5 @@ jobs:
         with:
           image_repository: ${{ secrets.DOCKERHUB_USERNAME }}/my-app
           image_tag: latest
-        secrets:
-          kubernetes_config: ${{ secrets.KUBECONFIG }}
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}

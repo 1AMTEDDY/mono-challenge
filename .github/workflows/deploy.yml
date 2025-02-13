@@ -1,0 +1,36 @@
+name: "Build and Deploy"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Registry
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build and Tag Docker Image
+        run: |
+          # Build the Docker image from the Dockerfile
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest .
+
+      - name: Push Docker Image
+        run: |
+          # Push to your Docker Hub repo (username/my-app:latest)
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+
+      - name: Deploy with Helm (Reusable Workflow)
+        uses: ./.github/workflows/reusable-deploy.yml
+        with:
+          image_repository: ${{ secrets.DOCKERHUB_USERNAME }}/my-app
+          image_tag: latest
+        secrets:
+          kubernetes_config: ${{ secrets.KUBECONFIG }}

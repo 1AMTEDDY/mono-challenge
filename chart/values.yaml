@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: 1amteddy/mono-app
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+nameOverride: "mono-app"
+fullnameOverride: "mono-app"
